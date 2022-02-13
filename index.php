@@ -9,12 +9,12 @@ use App\TableFormat;
 // Connexion à la bdd
 require_once('connect.php');
 
-$requestMain = 'SELECT film.title, film.rental_rate, film.rating, count(inventory.film_id) as rental_nbr, category.name as category
-                FROM film,category,film_category, inventory, rental
-                WHERE film.film_id = film_category.film_id 
-                AND category.category_id = film_category.category_id
-                AND rental.inventory_id = inventory.inventory_id
-                AND inventory.film_id = film.film_id';
+$requestMain = 'SELECT film.film_id, title, rental_rate, rating, category.name, 
+COUNT(rental.rental_id) as rental_nbr FROM film 
+LEFT JOIN film_category ON film.film_id = film_category.film_id
+LEFT JOIN category ON film_category.category_id = category.category_id
+LEFT JOIN inventory ON film.film_id = inventory.film_id
+LEFT JOIN rental ON rental.inventory_id = inventory.inventory_id';
 
 $requestCount = 'SELECT COUNT(film.film_id) AS nbFilm FROM film';
 
@@ -28,7 +28,7 @@ if (!empty($_GET['q'])) {
     $params['title'] = "%" . $_GET['q'] . "%";
 }
 
-$requestMain .= " GROUP BY inventory.film_id";
+$requestMain .= " GROUP BY film.film_id";
 
 // Tri
 if (!empty($_GET['sort']) && in_array($_GET['sort'], $sortable)) {

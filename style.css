@@ -1,0 +1,28 @@
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+.pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-number {
+	padding: 20px 0;
+}
+
+.btn-nb {
+	margin-left: 10px;
+}
+
+.pag-nav {
+	display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    align-items: center;
+}
